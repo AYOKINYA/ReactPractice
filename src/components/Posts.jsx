@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getPosts } from '../actions/post';
+
 
 const Posts = () => {
     const posts = useSelector(state => state.posts);

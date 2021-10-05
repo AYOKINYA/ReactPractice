@@ -4,12 +4,12 @@ const BASE_URL = "https://jsonplaceholder.typicode.com/posts";
 
 
 const getPosts = () => {
-        return axios.get(BASE_URL);
+        return axios.get(BASE_URL + '?_limit=10');
     };
 
 
 const api = {
-    getPosts
+    getPosts,
 };
 
 export default api;
