@@ -1,7 +1,8 @@
-import { throttle, put, call, all, fork, takeLeading} from "redux-saga/effects";
+import { throttle, put, call, all, fork, takeLeading, takeEvery} from "redux-saga/effects";
 import api from '../api';
 
-import {getPostsSuccess, getPostsFail, addPostSuccess, addPostFail } from '../actions/post'
+import {getPostsSuccess, getPostsFail, addPostSuccess, addPostFail, 
+    editPostSuccess, editPostFail, deletePostSuccess, deletePostFail} from '../actions/post'
 
 function* getAllPosts() {
     try {
@@ -18,8 +19,8 @@ function* watchGetPosts() {
 
 function* addPost(action) {
     try {
-        const {data} = yield call(api.addPost, action.newTodo); // call: call API
-        yield put(addPostSuccess({ ...action.newTodo, ...data })); //put : dispatch Action
+        const {data} = yield call(api.addPost, action.newPost); // call: call API
+        yield put(addPostSuccess({ ...action.newPost, ...data })); //put : dispatch Action
     } catch (error) {
         yield put(addPostFail(error));
     }
@@ -28,10 +29,42 @@ function* addPost(action) {
 function* addPostWatcher() {
     yield takeLeading("ADD_POST", addPost);
   }
-  
+
+
+function* editPost(action) {
+    try {
+        const {data} = yield call(api.editPost, action.id, action.editedPost); // call: call API
+        yield put(editPostSuccess(action.id, data)); //put : dispatch Action
+    } catch (error) {
+        yield put(editPostFail(error));
+    }
+}
+
+function* editPostWatcher() {
+    yield takeEvery('EDIT_POST', editPost) // Remember to create an action that returns this action type(UPDATE_REQUEST);
+}
+
+function* deletePost(action) {
+    try {
+        yield call(api.deletePost, action.id); // call: call API
+        yield put(deletePostSuccess(action.id)); //put : dispatch Action
+    } catch (error) {
+        yield put(deletePostFail(error));
+    }
+}
+
+function* deletePostWatcher() {
+    yield takeEvery('DELETE_POST', deletePost) // Remember to create an action that returns this action type(UPDATE_REQUEST);
+}
+
 
 function* rootSaga() {
-    yield all([fork(watchGetPosts), fork(addPostWatcher)]);
+    yield all(
+                [fork(watchGetPosts),
+                fork(addPostWatcher),
+                fork(editPostWatcher),
+                fork(deletePostWatcher)]
+            );
 
     // all은 배열을 받고, 받은 이펙트를 등록 (실행 아님, 등록임!!)
     // fork는 함수를 실행

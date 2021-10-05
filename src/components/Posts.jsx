@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getPosts, addPost } from '../actions/post';
+import { getPosts, addPost, deletePost, editPost } from '../actions/post';
 
 
 const Posts = () => {
@@ -21,6 +21,21 @@ const Posts = () => {
                 return (
                     <li key={post.id}>
                         title : {post.title}
+                        <button
+                            onClick={() => {
+                                dispatch(deletePost(post.id));
+                            }}
+                        >
+                            Delete Item
+                        </button>
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(editPost(post.id, { title: "No Title", body: "No Body", userId: 123 }));
+                            }}
+                        >
+                            Encrypt Item
+                        </button>
                     </li>
                 )
             })
