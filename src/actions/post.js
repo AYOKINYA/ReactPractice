@@ -17,3 +17,16 @@ export const getPostsFail = (error) => {
         error
     };
 };
+
+export const addPost = (newTodo) => ({
+    type: "ADD_POST",
+    newTodo,
+})
+export const addPostSuccess = (newTodo) => ({
+    type: "ADD_POST_SUCCESS",
+    newTodo,
+})
+export const addPostFail = (error) => ({
+    type: "ADD_POST_FAIL",
+    error,
+})

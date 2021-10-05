@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getPosts } from '../actions/post';
+import { getPosts, addPost } from '../actions/post';
 
 
 const Posts = () => {
@@ -12,8 +12,12 @@ const Posts = () => {
         dispatch(getPosts())
     }, [dispatch]);
 
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+
     return (
-            <div> {posts && posts.map((post) => {
+            <div> 
+                {posts && posts.map((post) => {
                 return (
                     <li key={post.id}>
                         title : {post.title}
@@ -21,6 +25,24 @@ const Posts = () => {
                 )
             })
                 }
+
+                <input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder='title'
+                />
+                <input
+                        value={body}
+                        onChange={(e) => setBody(e.target.value)}
+                        placeholder='body'
+                />
+                <button
+                        onClick={() => {
+                        dispatch(addPost({ title, body, userId: 123 }));
+                        }}
+                    >
+                        Add Item
+                </button>
             </div>
     );
 
