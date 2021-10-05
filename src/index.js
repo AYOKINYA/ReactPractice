@@ -4,9 +4,32 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import logger from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./reducers"
+
+import createSagaMiddleware from "redux-saga";
+// import rootSaga from "./sagas";
+
+const sagaMiddleware = createSagaMiddleware();
+
+// 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
+const enhancer =
+  process.env.NODE_ENV === "production"
+    ? compose(applyMiddleware(sagaMiddleware))
+    : composeWithDevTools(applyMiddleware(sagaMiddleware, logger));
+
+const store = createStore(rootReducer, enhancer);
+
+// sagaMiddleware.run(rootSaga);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
