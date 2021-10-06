@@ -3,7 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 import drawDoughnutLabel from "./DoughnutLabel/core"
 
-const dataValues = [35, 65];
+const dataValues = [65, 35];
 const toggleLegend = true;
 
 // text to write inside the doughnut chart
@@ -35,19 +35,19 @@ const doughnutLabel = {
 
 const options = {
     scales: {
-    myScale: {
-        type: "logarithmic",
-        position: toggleLegend ? "left" : "right",
-    },
+        myScale: {
+            type: "logarithmic",
+            position: toggleLegend ? "left" : "right",
+        },
     },
     plugins: {
-    legend: {
-        position: toggleLegend ? "top" : "bottom",
-    },
-    title: {
-        display: true,
-        text: "Chart.js Doughnut Gauge Chart",
-    },
+        legend: {
+            position: toggleLegend ? "top" : "bottom",
+        },
+        title: {
+            display: true,
+            text: "Chart.js Doughnut Gauge Chart",
+        },
     },
 };
 
@@ -66,13 +66,15 @@ const data = {
         ],
         borderColor: [
         '#3ec556',
-        '#3ec556'
-        ]
-        // ,
+        'rgba(0, 0, 0, 0)'
+        ],
         // borderWidth: [
         //   0,
         //   0
         // ]
+        rotation: 200, // arc 색 채우는 시작점 바꾼다.
+        cutout: '70%', // arc 색 두께 조절한다.
+        borderRadius: 120 // arc edge 둥글게 만든다.
     },
     ],
 };
