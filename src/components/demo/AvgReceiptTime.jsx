@@ -4,25 +4,10 @@ import { Doughnut } from 'react-chartjs-2';
 
 import drawDoughnutLabel from "./DoughnutLabel/core"
 
-const toggleLegend = false;
-
 const options = {
-    scales: {
-    myScale: {
-        type: "logarithmic",
-        position: toggleLegend ? "left" : "right",
-    },
-    },
-    plugins: {
-    legend: {
-        position: toggleLegend ? "top" : "bottom",
-    },
-    title: {
-        display: true,
-        text: "Chart.js Doughnut Chart",
-    },
-    },
-};
+    maintainAspectRatio: false,
+    responsive: false
+}
 
 const doughnutLabel = {
     id: 'doughnutLabel',
@@ -32,6 +17,8 @@ const doughnutLabel = {
 const AvgReceiptTime = () => {
 
     const [chartData, setChartData] = useState({});
+    const [GoodsReleaseMaxTime, setGoodsReleaseMaxTime] = useState(0);
+    const [GoodsReleaseMinTime, setGoodsReleaseMinTime] = useState(0);
 
     useEffect(() => {
         
@@ -39,6 +26,9 @@ const AvgReceiptTime = () => {
         .get("https://7ad89e8d-fea5-4572-a58d-82c6d3f07aa2.mock.pstmn.io/dashboard/receipttime")
         .then(
             (res) => {
+                    setGoodsReleaseMaxTime(res.data.GoodsReleaseMaxTime);
+                    setGoodsReleaseMinTime(res.data.GoodsReleaseMinTime);
+
                     const mean = Math.floor((res.data.GoodsReleaseMaxTime + res.data.GoodsReleaseMinTime) / 2);
                     setChartData({
                         datasets: [{
@@ -66,7 +56,10 @@ const AvgReceiptTime = () => {
 
     return (
         <div>
-            <Doughnut data={chartData} options={options} plugins={[doughnutLabel]} />
+            <Doughnut data={chartData} plugins={[doughnutLabel]} options={options} width={300} height={300}/>
+            Minimum : {GoodsReleaseMinTime}
+            <hr/>
+            Maximum : {GoodsReleaseMaxTime}
         </div>
     )
 }
