@@ -1,10 +1,12 @@
-import AvgReceiptTime from "./AvgReceiptTime";
+// import AvgReceiptTime from "./AvgReceiptTime";
+import CalendarUI from "./CalendarUI"
 
 const Demo = () => {
 
     return (
         <div>
-            < AvgReceiptTime />
+            {/* < AvgReceiptTime /> */}
+            <CalendarUI/>
         </div>
     )
 }

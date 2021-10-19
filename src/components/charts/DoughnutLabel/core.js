@@ -1,9 +1,23 @@
 import {resolve} from 'chart.js/helpers'
 import {utils} from './utils';
 
-function drawDoughnutLabel(chart, values) {
+function drawDoughnutLabel(chart) {
 
-	if (chart.chartArea) {
+	if (chart.chartArea && chart._metasets.length) {
+
+		const values = {
+			font: 'san-serif', 
+			color: '#808080', // if color is not given, utils.defaults.font.color is set
+			labels: [
+			{
+				text: chart._metasets[0]._parsed[0] + "s",
+				font: {
+					size: '60'
+				},
+			},
+			]
+		};
+
 		const {ctx, chartArea: {top, right, bottom, left}} = chart;
 		const { labels } = values;
 		const color = utils.defaults.font.color;
@@ -43,7 +57,6 @@ function drawDoughnutLabel(chart, values) {
 					resolve([innerLabel.font, {}], ctx, 0)
 				);
 			});
-
 			textAreaSize = utils.textSize(ctx, innerLabels);
 		}
 
