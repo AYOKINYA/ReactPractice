@@ -4,9 +4,23 @@ import { Calendar } from "react-modern-calendar-datepicker";
 
 const CalendarUI = () => {
 
+    const date = new Date();
+
+    const defaultFrom = {
+      year: date.getFullYear(),
+      month: date.getMonth() < 12 ? date.getMonth() + 1 : 1,
+      day: 13,
+    };
+
+    const defaultTo = {
+      year: date.getFullYear(),
+      month: date.getMonth() < 12 ? date.getMonth() + 1 : 1,
+      day: 21,
+    };
+
     const [selectedDayRange, setSelectedDayRange] = useState({
-        from: null,
-        to: null
+        from: defaultFrom,
+        to: defaultTo
       });
 
     const getHistory = (selectedDayRange) => {
@@ -25,29 +39,7 @@ const CalendarUI = () => {
                 colorPrimary="rgba(0,44,95,1)"
                 colorPrimaryLight="rgba(191,205,217,1)"
                 shouldHighlightWeekends
-                renderFooter={() => (
-                    <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 2rem' }}>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSelectedDayRange({
-                            from: null,
-                            to: null
-                          })
-                        }}
-                        style={{
-                          border: '#0fbcf9',
-                          color: '#fff',
-                          borderRadius: '0.5rem',
-                          padding: '1rem 2rem',
-                        }}
-                      >
-                        Reset Value!
-                      </button>
-                    </div>
-                  )}
             />
-
         </div>
     )
 }
