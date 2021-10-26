@@ -4,12 +4,14 @@ import { Bar } from 'react-chartjs-2';
 const dataValues = [40, 60, 30, 70, 15]; // 이 데이터를 나중에 redux에서 useSelector로 가져와야 할 듯?
 
 const data = {
-    labels: ["Seoul", "London", "Taipei", "Cairo", "Havana"],
+    labels: ["Seoul", "London"],
     datasets: [
         {
             label: "The 1st data set",
             data: dataValues,
-            backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+            backgroundColor: ['#77CEFF','#97B0C4'],
+            categoryPercentage: 1.0,
+            barPercentage: 0.5,
         },
     ],
 };
@@ -19,11 +21,13 @@ const options = {
         legend: {
             display: false
         },
-        title: {
-            display: true,
-            text: "Chart.js Bar Chart",
-        },
     },
+    scales: {
+        y: {display: false},
+        x: {display: false}
+    },
+    maintainAspectRatio : false,
+    responsive: false
 }
 
 // TODO : compare heights of bars in pair and draw the gaps accordingly
@@ -42,16 +46,16 @@ const drawGap = function(chart) {
     ctx.strokeStyle = "#ff0000";
     ctx.lineWidth = 5
     ctx.setLineDash([5, 3]);
-    ctx.moveTo(x2 - w2 / 2, y2 + ctx.lineWidth / 2); //From
-    ctx.lineTo(x1 - w1 / 2, y2 + ctx.lineWidth / 2); //To
+    ctx.moveTo(x2 + w2 / 2, y2 - ctx.lineWidth); //From
+    ctx.lineTo(x1 - w1 / 2, y2 - ctx.lineWidth); //To
     ctx.stroke();
 
     ctx.beginPath();
     ctx.strokeStyle = "#ff0000";
     ctx.lineWidth = 5
     ctx.setLineDash([5, 3]);
-    ctx.moveTo(x2 - w2 / 2, y1 - ctx.lineWidth / 2);
-    ctx.lineTo(x1 - w2 / 2, y1 - ctx.lineWidth / 2);
+    ctx.moveTo(x2 + w2 / 2, y1 - ctx.lineWidth);
+    ctx.lineTo(x1 - w2 / 2, y1 - ctx.lineWidth);
     ctx.stroke();
 }
 
@@ -63,8 +67,9 @@ const barGap = {
 const BarChart = () => {
 
     return (
+        
         <div>
-            <Bar data={data} options={options} plugins={[barGap]} />
+            <Bar data={data} options={options} plugins={[barGap]} width={"100px"} height={"150px"} />
         </div>
     )
 }
