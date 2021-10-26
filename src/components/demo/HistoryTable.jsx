@@ -8,6 +8,7 @@ const TableSheet = styled.table`
     margin-top: 5px;
     border-spacing: 0;
     display: block;
+    width: 909px;
     max-height: 300px;
     overflow: auto;
 `;
