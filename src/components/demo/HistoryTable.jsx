@@ -4,7 +4,7 @@ import styled, {ThemeProvider} from 'styled-components'
 import { useTable } from 'react-table'
 import theme from './theme'
 
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 const TableSheet = styled.table`
     margin-top: 5px;

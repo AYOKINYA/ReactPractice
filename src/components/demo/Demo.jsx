@@ -1,15 +1,15 @@
 // import AvgReceiptTime from "./AvgReceiptTime";
-// import CalendarUI from "./CalendarUI"
+import CalendarUI from "./CalendarUI"
 
-import HistoryTable from "./HistoryTable";
+// import HistoryTable from "./HistoryTable";
 
 const Demo = () => {
 
     return (
         <div>
             {/* < AvgReceiptTime /> */}
-            {/* <CalendarUI/> */}
-            <HistoryTable />
+            <CalendarUI/>
+            {/* <HistoryTable /> */}
         </div>
     )
 }
