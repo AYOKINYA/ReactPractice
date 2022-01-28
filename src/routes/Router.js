@@ -6,6 +6,7 @@ import Posts from "../components/Posts.jsx";
 import Demo from "../components/demo/Demo.jsx"
 
 import Charts from "../components/charts/Charts.jsx";
+import Layout from "../components/layout/Layout.jsx";
 
 const Router = () => (
   <BrowserRouter>
@@ -13,7 +14,8 @@ const Router = () => (
     <Route path="/counter" component={Counter} />
     <Route path="/posts" component={Posts} />
     <Route path="/charts" component={Charts} />
-    <Route path="/demo" component={Demo}></Route>
+    <Route path="/demo" component={Demo} />
+    <Route path="/layout" component={Layout} />
   </BrowserRouter>
 );
 
