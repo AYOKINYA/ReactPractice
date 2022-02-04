@@ -21,7 +21,7 @@ const Grid = () => {
 
     const [stateObj, setStateObj] = useState({
         currentBreakpoint: "lg",
-        compactType: "vertical",
+        compactType: null,
         mounted: false,
         layouts: { lg: [] },
     })
@@ -40,7 +40,40 @@ const Grid = () => {
           });
     }
 
-    const removeItem = (item) => {
+   
+
+    useEffect(() => {
+        setStateObj((prevState) => ({
+            ...prevState,
+            mounted: true,
+            layouts: {lg: generateLayout()}
+        }))
+    }, []);
+
+    const generateDOM = () => {
+        return _.map(stateObj.layouts[stateObj.currentBreakpoint], l => {
+            return (
+              <div key={l.i} className={l.static ? "static" : ""}>
+                  <div className="hide-button" onClick={ () => removeItem(l)}>
+                    x
+                    </div>
+                {l.static ? (
+                  <span
+                    className="text"
+                    title="This item is static and cannot be removed or resized."
+                  >
+                    Static - {l.i}
+                  </span>
+                ) : (
+                  <span className="text">{l.i}</span>
+                )}
+              </div>
+            );
+          });
+      }
+
+      const removeItem = (item) => {
+          console.log(item)
         setStateObj(prevState => ({
             ...prevState,
             layouts: {
@@ -53,40 +86,17 @@ const Grid = () => {
         }))
     }
 
-    useEffect(() => {
-        setStateObj((prevState) => ({
-            ...prevState,
-            mounted: true,
-            layouts: {lg: generateLayout()}
-        }))
-    }, []);
-
-    const generateDOM = () => {
-        return _.map(stateObj.layouts.lg, (l, i) => {
-            return (
-              <div key={i} className={l.static ? "static" : ""}>
-                  <div className="hide-button">
-                    x
-                    </div>
-                {l.static ? (
-                  <span
-                    className="text"
-                    title="This item is static and cannot be removed or resized."
-                  >
-                    Static - {i}
-                  </span>
-                ) : (
-                  <span className="text">{i}</span>
-                )}
-              </div>
-            );
-          });
-      }
-
       const onBreakpointChange = breakpoint => {
         setStateObj(prevState => ({
         ...prevState,
-          currentBreakpoint: breakpoint
+          currentBreakpoint: breakpoint,
+          layouts: {
+              ...prevState.layouts,
+              [breakpoint]:
+                prevState.layouts[breakpoint] ||
+                prevState.layouts[prevState.currentBreakpoint] ||
+                [] 
+          }
         }));
       };
     
