@@ -18,8 +18,9 @@ const Grid = () => {
         rowHeight: 30,
         // width: 600,
         y: 12,
+        cols: 12,
         onLayoutChange: function() {},
-        cols: 12
+        verticalCompact: false
     };
 
     const [layout, setLayout] = useState();
@@ -33,7 +34,10 @@ const Grid = () => {
                 y: i ? y * i : 6,
                 w: 3,
                 h: 5,
-                i: i.toString()
+                maxW: 12,
+                maxH: 12,
+                i: i.toString(),
+                // static: true면 사이즈 위치 고정
             }
         })
     }
@@ -60,9 +64,9 @@ const Grid = () => {
         <div>
             <ReactGridLayout
             layout={layout}
+            isBounded={true}
             onLayoutChange={onLayoutChange}
             useCSSTransforms={true}
-            allowOverlap={true}
             {...defaultVals}
             >
             {generateDOM()}
