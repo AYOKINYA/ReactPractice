@@ -7,6 +7,7 @@ import Demo from "../components/demo/Demo.jsx"
 
 import Charts from "../components/charts/Charts.jsx";
 import Layout from "../components/layout/Layout.jsx";
+import Grid from "../components/layout/Grid.jsx";
 
 const Router = () => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const Router = () => (
     <Route path="/charts" component={Charts} />
     <Route path="/demo" component={Demo} />
     <Route path="/layout" component={Layout} />
+    <Route path="/grid" component={Grid} />
   </BrowserRouter>
 );
 
