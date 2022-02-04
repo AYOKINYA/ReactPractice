@@ -1,5 +1,5 @@
 
-import RGL, { WidthProvider } from "react-grid-layout";
+import { WidthProvider, Responsive } from "react-grid-layout";
 import _ from "lodash";
 import React, { useEffect, useState } from 'react';
 
@@ -8,69 +8,144 @@ import 'react-resizable/css/styles.css'
 
 import './grid-style.css'
 
-const ReactGridLayout = WidthProvider(RGL);
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const Grid = () => {
 
     const defaultVals = { //temporary
         className: "layout",
-        items: 2,
         rowHeight: 30,
-        // width: 600,
-        y: 12,
-        cols: 12,
+        cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
         onLayoutChange: function() {},
-        verticalCompact: false
     };
 
-    const [layout, setLayout] = useState();
+    const [stateObj, setStateObj] = useState({
+        currentBreakpoint: "lg",
+        compactType: "vertical",
+        mounted: false,
+        layouts: { lg: [] },
+    })
 
     const generateLayout = () => { //temporary
-        const v = defaultVals;
-        return _.map(new Array(v.items), function (item, i) {
-            const y = _.result(v, "y") || Math.ceil(Math.random() * 4) + 1;
+        return _.map(_.range(0, 25), function(item, i) {
+            var y = Math.ceil(Math.random() * 4) + 1;
             return {
-                x: 12,
-                y: i ? y * i : 6,
-                w: 3,
-                h: 5,
-                maxW: 12,
-                maxH: 12,
-                i: i.toString(),
-                // static: true면 사이즈 위치 고정
-            }
-        })
+              x: Math.round(Math.random() * 5) * 2,
+              y: Math.floor(i / 6) * y,
+              w: 2,
+              h: y,
+              i: i.toString(),
+              static: Math.random() < 0.05
+            };
+          });
     }
 
-    const onLayoutChange = () => {defaultVals.onLayoutChange()}
+    const removeItem = (item) => {
+        setStateObj(prevState => ({
+            ...prevState,
+            layouts: {
+                ...prevState.layouts,
+                [prevState.currentBreakpoint]: prevState.layouts[
+                  prevState.currentBreakpoint
+                ].filter(({ i }) => i !== item.i)
+              }
+
+        }))
+    }
 
     useEffect(() => {
-        setLayout(generateLayout())
-        
+        setStateObj((prevState) => ({
+            ...prevState,
+            mounted: true,
+            layouts: {lg: generateLayout()}
+        }))
     }, []);
 
     const generateDOM = () => {
-        return _.map(_.range(defaultVals.items), function(i) {
-          return (
-            <div key={i}>
-              <span className="text">{i}</span>
-            </div>
-          );
-        });
+        return _.map(stateObj.layouts.lg, (l, i) => {
+            return (
+              <div key={i} className={l.static ? "static" : ""}>
+                  <div className="hide-button">
+                    x
+                    </div>
+                {l.static ? (
+                  <span
+                    className="text"
+                    title="This item is static and cannot be removed or resized."
+                  >
+                    Static - {i}
+                  </span>
+                ) : (
+                  <span className="text">{i}</span>
+                )}
+              </div>
+            );
+          });
       }
+
+      const onBreakpointChange = breakpoint => {
+        setStateObj(prevState => ({
+        ...prevState,
+          currentBreakpoint: breakpoint
+        }));
+      };
+    
+      const onCompactTypeChange = () => {
+        const { compactType: oldCompactType } = stateObj;
+        const compactType =
+          oldCompactType === "horizontal"
+            ? "vertical"
+            : oldCompactType === "vertical"
+            ? null
+            : "horizontal";
+        setStateObj((prevState) => ({
+                ...prevState, 
+                compactType: compactType
+            }));
+      };
+    
+      const onLayoutChange = (layout, layouts) => {
+        defaultVals.onLayoutChange(layout, layouts);
+      };
+
+     const onNewLayout = () => {
+        setStateObj((prevState) => ({
+          ...prevState,
+          layouts: { lg: generateLayout() }
+        }));
+      };
 
 
     return (
         <div>
-            <ReactGridLayout
-            layout={layout}
-            isBounded={true}
-            onLayoutChange={onLayoutChange}
-            useCSSTransforms={true}
+            <div>
+            Current Breakpoint: {stateObj.currentBreakpoint} (
+            {defaultVals.cols[stateObj.currentBreakpoint]} columns)
+            </div>
+            <div>
+            Compaction type:{" "}
+            {_.capitalize(stateObj.compactType) || "No Compaction"}
+            </div>
+            <button onClick={onNewLayout}>Generate New Layout</button>
+            <button onClick={onCompactTypeChange}>
+            Change Compaction Type
+            </button>
+
+            <ResponsiveReactGridLayout
             {...defaultVals}
+            layouts={stateObj.layouts}
+            // isBounded={true}
+            onBreakpointChange={onBreakpointChange}
+            onLayoutChange={onLayoutChange}
+            measureBeforeMount={false}
+            // I like to have it animate on mount. If you don't, delete `useCSSTransforms` (it's default `true`)
+            // and set `measureBeforeMount={true}`.
+            useCSSTransforms={stateObj.mounted}
+            compactType={stateObj.compactType}
+            preventCollision={!stateObj.compactType}
             >
-            {generateDOM()}
-            </ReactGridLayout>
+                {generateDOM()}
+            </ResponsiveReactGridLayout>
         </div>
     )
 }
