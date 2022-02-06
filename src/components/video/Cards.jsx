@@ -5,7 +5,8 @@ import React, { useEffect, useState } from 'react';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css'
 
-import '../layout/grid-style.css'
+import LineDemo from "./LineDemo"
+import AreaDemo from "./AreaDemo"
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -53,6 +54,7 @@ const Cards = () => {
           return (
             <div key={i}>
               <span className="text">{i}</span>
+              {i === 0 ? <LineDemo/> : <AreaDemo/>}
             </div>
           );
         });
