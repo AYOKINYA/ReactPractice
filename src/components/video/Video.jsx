@@ -1,4 +1,5 @@
 import Cards from "./Cards";
+import Controller from "./Controller";
 
 const Video = () => {
     return (
@@ -10,8 +11,8 @@ const Video = () => {
             </video>
             <div style={{position: "absolute", top: "0", bottom: "0", right: "0", left: "0" }}>
                 <Cards/>
+                <Controller />
             </div>
-
         </div>
     )
 }
