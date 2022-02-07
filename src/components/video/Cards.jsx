@@ -10,13 +10,12 @@ import AreaDemo from "./AreaDemo"
 
 const ReactGridLayout = WidthProvider(RGL);
 
-const Cards = () => {
+const Cards = ({open}) => {
 
     const defaultVals = { //temporary
         className: "layout",
-        items: 2,
+        items: 2, // # of cards
         rowHeight: 30,
-        // width: 600,
         y: 12,
         cols: 12,
         onLayoutChange: function() {},
@@ -30,10 +29,10 @@ const Cards = () => {
         return _.map(new Array(v.items), function (item, i) {
             const y = _.result(v, "y") || Math.ceil(Math.random() * 4) + 1;
             return {
-                x: 8,
+                x: open === true ? 8 : 9, //open할 때마다 grid 변화.. responsive으로 바꾸기
                 y: i,
-                w: 2,
-                h: 5,
+                w: 3,
+                h: 6,
                 maxW: 12,
                 maxH: 12,
                 i: i.toString(),
@@ -47,7 +46,7 @@ const Cards = () => {
     useEffect(() => {
         setLayout(generateLayout())
         
-    }, []);
+    }, [open]);
 
     const generateDOM = () => {
         return _.map(_.range(defaultVals.items), function(i) {

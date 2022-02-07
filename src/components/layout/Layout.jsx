@@ -45,7 +45,7 @@ const Layout = () => {
                     overflow:'auto',
                 }}>
                     <Toolbar/>
-                    <Cards/>
+                    <Cards open={open}/>
                     {/* <Grid/> */}
                 </Box>
                 
