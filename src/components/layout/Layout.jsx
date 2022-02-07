@@ -7,7 +7,7 @@ import { useState } from "react";
 import {createTheme, ThemeProvider } from '@mui/material/styles';
 import SideMenuDrawer from "./SideMenuDrawer";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
-import Content from "./Content";
+import Cards from "../video/Cards";
 
 const Layout = () => {
 
@@ -36,16 +36,17 @@ const Layout = () => {
                 <SideMenuDrawer
                 open={open}
                 toggleDrawer={toggleDrawer} />
-                <Box //이걸 해야 sidebar과 색으로 영역 구분
+                <Box //이걸 해야 sidebar와 색으로 영역 구분
                 component="main"
                 sx={{backgroundColor: (theme) => theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
-                    flexGrow: 12,
+                    flexGrow: 1,
                     width:"100vw",
                     height: '100vh',
                     overflow:'auto',
                 }}>
                     <Toolbar/>
-                    <Content/>
+                    <Cards/>
+                    {/* <Grid/> */}
                 </Box>
                 
             </Box>

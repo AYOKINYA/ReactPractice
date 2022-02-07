@@ -53,7 +53,7 @@ const Cards = () => {
         return _.map(_.range(defaultVals.items), function(i) {
           return (
             <div key={i}>
-              <span className="text">{i}</span>
+              <span className="text"></span>
               {i === 0 ? <LineDemo/> : <AreaDemo/>}
             </div>
           );
