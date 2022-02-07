@@ -40,8 +40,6 @@ const Grid = () => {
           });
     }
 
-   
-
     useEffect(() => {
         setStateObj((prevState) => ({
             ...prevState,
@@ -73,7 +71,7 @@ const Grid = () => {
       }
 
       const removeItem = (item) => {
-          console.log(item)
+        console.log(item)
         setStateObj(prevState => ({
             ...prevState,
             layouts: {
@@ -82,7 +80,6 @@ const Grid = () => {
                   prevState.currentBreakpoint
                 ].filter(({ i }) => i !== item.i)
               }
-
         }))
     }
 

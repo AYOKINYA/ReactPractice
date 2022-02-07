@@ -102,12 +102,6 @@ const SideMenuDrawer = ({open, toggleDrawer}) => {
                 </ListItemIcon>
                 <ListItemText primary="Settings" />
               </ListItem>
-              <ListItem button>
-                <ListItemIcon>
-                  <SettingsIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Settings" />
-              </ListItem>
             </List>
             </Drawer>
         </div>
