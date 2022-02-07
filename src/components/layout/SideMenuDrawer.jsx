@@ -2,7 +2,14 @@
 import MuiDrawer from '@mui/material/Drawer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { styled } from '@mui/material/styles';
-import { IconButton, Toolbar } from '@mui/material';
+import { IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Divider } from '@mui/material';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import MailIcon from '@mui/icons-material/Mail'
+import DevicesIcon from "@mui/icons-material/Devices";
+import EventIcon from "@mui/icons-material/Event";
+import ExploreIcon from "@mui/icons-material/Explore";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { drawerWidth } from './constants';
 
 const SideMenuDrawer = ({open, toggleDrawer}) => {
@@ -45,13 +52,63 @@ const SideMenuDrawer = ({open, toggleDrawer}) => {
                 }}
             >
                 <IconButton onClick={toggleDrawer}>
-                <ChevronLeftIcon />
+                  <ChevronLeftIcon />
                 </IconButton>
             </Toolbar>
-            {/* <Divider />
-            <List>{mainListItems}</List>
             <Divider />
-            <List>{secondaryListItems}</List> */}
+            <List>
+              <ListItem button>
+                <ListItemIcon>
+                  <DashboardIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <MailIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Mail" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <EventIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Events" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <ExploreIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Explore" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <FavoriteIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Favorites" />
+              </ListItem>
+            </List>
+            <Divider />
+            <List>
+              <ListItem button>
+                <ListItemIcon>
+                  <DevicesIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Devices" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <SettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Settings" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <SettingsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Settings" />
+              </ListItem>
+            </List>
             </Drawer>
         </div>
     )
