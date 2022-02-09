@@ -2,8 +2,6 @@
 import React from "react";
 import Header from "./Header";
 import { useState } from "react";
-
-
 import {createTheme, ThemeProvider } from '@mui/material/styles';
 import SideMenuDrawer from "./SideMenuDrawer";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
@@ -47,7 +45,7 @@ const Layout = () => {
                 }}>
                     <Toolbar/>
                     <Cards open={open}/>
-                    {/* <Grid/> */}
+                    {/* <Grid open={open}/> */}
                 </Box>
                 
             </Box>

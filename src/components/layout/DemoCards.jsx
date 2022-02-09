@@ -7,6 +7,7 @@ import 'react-resizable/css/styles.css'
 
 import LineDemo from "../video/LineDemo"
 import AreaDemo from "../video/AreaDemo"
+import ControlPanel from "./ControlPanel";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -14,7 +15,7 @@ const DemoCards = ({open}) => {
 
     const defaultVals = { //temporary
         className: "layout",
-        items: 2, // # of cards
+        items: 3, // # of cards
         rowHeight: 30,
         y: 12,
         cols: 12,
@@ -32,7 +33,7 @@ const DemoCards = ({open}) => {
                 x: 9,
                 y: i,
                 w: 3,
-                h: 6,
+                h: i === 2 ? 9 : 6,
                 maxW: 12,
                 maxH: 12,
                 i: i.toString(),
@@ -44,17 +45,20 @@ const DemoCards = ({open}) => {
     const onLayoutChange = () => {defaultVals.onLayoutChange()}
 
     useEffect(() => {
-        window.dispatchEvent(new Event('resize'));
         setLayout(generateLayout())
-        
+    }, []);
+
+    useEffect(() => {
+        window.dispatchEvent(new Event('resize'));
     }, [open]);
+
 
     const generateDOM = () => {
         return _.map(_.range(defaultVals.items), function(i) {
           return (
-            <div key={i}>
+            <div key={i} className={i === 2 ? "control" : ""}>
               <span className="text"></span>
-              {i === 0 ? <LineDemo/> : <AreaDemo/>}
+              {i === 0 ? <LineDemo/> : i === 1 ? <AreaDemo/> : <ControlPanel/>}
             </div>
           );
         });

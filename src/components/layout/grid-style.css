@@ -22,10 +22,17 @@
   .react-grid-item {
     box-sizing: border-box;
   }
+
   .react-grid-item:not(.react-grid-placeholder) {
     background: #424242;
     border: 1px solid black;
   }
+  
+  .react-grid-item.control {
+    background: #fff;
+    background: "rgba(255,255,255,0)"
+  }
+
   .react-grid-item.resizing {
     opacity: 0.9;
   }
@@ -98,3 +105,5 @@
     margin: 10px 0;
     padding: 10px;
   }
+
+  

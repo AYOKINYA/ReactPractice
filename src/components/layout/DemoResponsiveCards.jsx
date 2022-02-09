@@ -10,7 +10,7 @@ import './grid-style.css'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-const Grid = () => {
+const Grid = ({open}) => {
 
     const defaultVals = { //temporary
         className: "layout",
@@ -47,6 +47,11 @@ const Grid = () => {
             layouts: {lg: generateLayout()}
         }))
     }, []);
+
+    useEffect(() => {
+        window.dispatchEvent(new Event('resize'));
+    }, [open]);
+
 
     const generateDOM = () => {
         return _.map(stateObj.layouts[stateObj.currentBreakpoint], l => {
