@@ -48,7 +48,6 @@ const Layout = () => {
                     <Cards open={open}/>
                     {/* <Grid open={open}/> */}
                     <Bottombar open={open}/>
-
                 </Box>
 
                 

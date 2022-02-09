@@ -2,6 +2,7 @@ import { Toolbar } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import { drawerWidth } from './constants';
+import PieDemo from "./PieDemo";
 
 
 const BottomAppBar = styled(MuiAppBar, {
@@ -29,13 +30,11 @@ const BottomAppBar = styled(MuiAppBar, {
 
 const Bottombar = ({open}) => {
     return (
-        <div>
             <BottomAppBar position="fixed" open={open}>
-                <Toolbar>
-                    
+                <Toolbar sx={{height: "64px"}}>
+                    <PieDemo/>
                 </Toolbar>
             </BottomAppBar>
-        </div>
     )
 }
 
