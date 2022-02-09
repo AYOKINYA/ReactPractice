@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import { Box, Container, Grid, Paper } from '@mui/material';
 import ControlPad from './ControlPad'
 import { Joystick } from 'react-joystick-component';
+import { useState } from 'react';
 
 const ColorButton = styled(Button)(({ theme }) => ({
 
@@ -25,6 +26,14 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 const ControlPanel = () => {
 
+    const [tmp, SetTmp] = useState(true);
+
+    const onMove = (e) => {
+        console.log("clicked")
+        console.log(e)
+        SetTmp(!tmp);
+    }
+
     return (
         <div>
             <Stack direction="row">
@@ -37,9 +46,14 @@ const ControlPanel = () => {
             </Stack>
             <Container>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Joystick size={100} sticky={true} baseColor="red" stickColor="blue"></Joystick>
-                    </Grid>
+                    <div onClick={(e) => {onMove(e)}}>
+                        <Grid item xs={6} sx={{backgroundColor: 'green'}}>
+                            <Joystick size={100}
+                                sticky={false}
+                                baseColor="red"
+                                stickColor="blue"/>
+                        </Grid>
+                    </div>
 
                     
                     {/* <Grid item xs={6}>

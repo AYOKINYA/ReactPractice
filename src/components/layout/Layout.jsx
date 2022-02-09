@@ -49,8 +49,6 @@ const Layout = () => {
                     {/* <Grid open={open}/> */}
                     <Bottombar open={open}/>
                 </Box>
-
-                
             </Box>
         </ThemeProvider>
         </>

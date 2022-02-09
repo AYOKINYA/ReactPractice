@@ -56,9 +56,9 @@ const DemoCards = ({open}) => {
     const generateDOM = () => {
         return _.map(_.range(defaultVals.items), function(i) {
           return (
-            <div key={i} className={i === 2 ? "control" : ""}>
+            <div key={i} className={i === 2 && open ? "control" : ""}>
               <span className="text"></span>
-              {i === 0 ? <LineDemo/> : i === 1 ? <AreaDemo/> : <ControlPanel/>}
+                {i === 0 ? <LineDemo/> : i === 1 ? <AreaDemo/> : <ControlPanel/>}
             </div>
           );
         });
@@ -70,6 +70,7 @@ const DemoCards = ({open}) => {
             <ReactGridLayout
             layout={layout}
             // isBounded={true}
+            draggableCancel={'.control'}
             onLayoutChange={onLayoutChange}
             useCSSTransforms={true}
             {...defaultVals}
