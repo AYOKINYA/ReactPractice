@@ -7,7 +7,8 @@ import { useState } from "react";
 import {createTheme, ThemeProvider } from '@mui/material/styles';
 import SideMenuDrawer from "./SideMenuDrawer";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
-import Cards from "../video/Cards";
+import Cards from "./DemoCards";
+import Grid from "./DemoResponsiveCards"
 
 const Layout = () => {
 
