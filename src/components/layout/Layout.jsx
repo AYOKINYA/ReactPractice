@@ -7,6 +7,7 @@ import SideMenuDrawer from "./SideMenuDrawer";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
 import Cards from "./DemoCards";
 import Grid from "./DemoResponsiveCards"
+import Bottombar from "./BottomBar";
 
 const Layout = () => {
 
@@ -46,7 +47,10 @@ const Layout = () => {
                     <Toolbar/>
                     <Cards open={open}/>
                     {/* <Grid open={open}/> */}
+                    <Bottombar open={open}/>
+
                 </Box>
+
                 
             </Box>
         </ThemeProvider>
