@@ -1,4 +1,5 @@
 import Cards from "./Cards";
+import HlsPlayer from "./HlsPlayer";
 
 const Video = () => {
     return (
@@ -8,13 +9,21 @@ const Video = () => {
         //         <Cards/>
         //     </div> */}
         // </div>
-        <div style={{position: "relative"}}>
-            <video 
-                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" muted loop autoPlay
-                width="100%"
-                height="100%">
-            </video>
-        </div>
+        // <div style={{position: "relative"}}>
+        //     <video 
+        //         src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" muted loop autoPlay
+        //         width="100%"
+        //         height="100%">
+        //     </video>
+        // </div>
+        <HlsPlayer
+        src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+        autoPlay={true}
+        muted={"muted"}
+        controls={true}
+        width="100%"
+        height="auto"
+      />
     )
 }
 

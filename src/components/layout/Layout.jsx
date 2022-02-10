@@ -8,6 +8,7 @@ import { Box, CssBaseline, Toolbar } from "@mui/material";
 import Cards from "./DemoCards";
 import Grid from "./DemoResponsiveCards"
 import Bottombar from "./BottomBar";
+import HlsPlayer from "../video/HlsPlayer";
 
 const Layout = () => {
 
@@ -44,13 +45,22 @@ const Layout = () => {
                     height: '100vh',
                     // overflow:'auto',
                     position: "relative",
-                    backgroundColor: "green"
+                    backgroundColor: "#424242"
                 }}>
-                        <video 
+                        {/* <video 
                         src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" muted loop autoPlay
                         width="100%"
                         height="100%">
-                        </video>
+                        </video> */}
+                        <HlsPlayer
+                            src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+                            autoPlay={true}
+                            muted="muted"
+                            loop="loop"
+                            controls={true}
+                            width="100%"
+                            height="100%"
+                        />
                         <div style={{position: "absolute", top: "0", bottom: "0", right: "0", left: "0" }}>
                             <Toolbar/>
                             <Cards open={open}/>
