@@ -9,7 +9,6 @@ import Charts from "../components/charts/Charts.jsx";
 import Layout from "../components/layout/Layout.jsx";
 import Grid from "../components/layout/Grid.jsx";
 import Video from "../components/video/Video.jsx";
-import Controller from "../components/video/Controller.jsx";
 import PieDemo from "../components/layout/PieDemo.jsx";
 
 const Router = () => (
@@ -21,7 +20,6 @@ const Router = () => (
     <Route path="/demo" component={Demo} />
     <Route path="/layout" component={Layout} />
     <Route path="/grid" component={Grid} />
-    <Route path="/controller" component={Controller} />
     <Route path="/tmp" component={PieDemo} />
   
   </BrowserRouter>

@@ -42,11 +42,20 @@ const Layout = () => {
                     flexGrow: 1,
                     width:"100vw",
                     height: '100vh',
-                    overflow:'auto',
+                    // overflow:'auto',
+                    position: "relative",
+                    backgroundColor: "green"
                 }}>
-                    <Toolbar/>
-                    <Cards open={open}/>
-                    {/* <Grid open={open}/> */}
+                        <video 
+                        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" muted loop autoPlay
+                        width="100%"
+                        height="100%">
+                        </video>
+                        <div style={{position: "absolute", top: "0", bottom: "0", right: "0", left: "0" }}>
+                            <Toolbar/>
+                            <Cards open={open}/>
+                            {/* <Grid open={open}/> */}
+                        </div>
                     <Bottombar open={open}/>
                 </Box>
             </Box>
