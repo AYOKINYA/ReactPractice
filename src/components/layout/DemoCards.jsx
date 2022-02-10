@@ -13,11 +13,13 @@ const ReactGridLayout = WidthProvider(RGL);
 
 const DemoCards = ({open}) => {
 
+    const [isDraggable, setIsDraggable] = useState(true);
+
     const defaultVals = { //temporary
         className: "layout",
         items: 3, // # of cards
         rowHeight: 30,
-        y: 12,
+        y: 12, // temporary value
         cols: 12,
         onLayoutChange: function() {},
         compactType: null
@@ -28,12 +30,12 @@ const DemoCards = ({open}) => {
     const generateLayout = () => { //temporary
         const v = defaultVals;
         return _.map(new Array(v.items), function (item, i) {
-            const y = _.result(v, "y") || Math.ceil(Math.random() * 4) + 1;
+            // const y = _.result(v, "y") || Math.ceil(Math.random() * 4) + 1;
             return {
                 x: 9,
-                y: i,
+                y: i === 2 ? 14: i,
                 w: 3,
-                h: i === 2 ? 9 : 6,
+                h: i === 2 ? 7 : 6,
                 maxW: 12,
                 maxH: 12,
                 i: i.toString(),
@@ -52,13 +54,12 @@ const DemoCards = ({open}) => {
         window.dispatchEvent(new Event('resize'));
     }, [open]);
 
-
     const generateDOM = () => {
         return _.map(_.range(defaultVals.items), function(i) {
           return (
-            <div key={i} className={i === 2 && open ? "control" : ""}>
+            <div key={i} className={i === 2 && !isDraggable ? "control" : ""}>
               <span className="text"></span>
-                {i === 0 ? <LineDemo/> : i === 1 ? <AreaDemo/> : <ControlPanel/>}
+                {i === 0 ? <LineDemo/> : i === 1 ? <AreaDemo/> : <ControlPanel isDraggable={isDraggable} setIsDraggable={setIsDraggable}/>}
             </div>
           );
         });
@@ -75,7 +76,9 @@ const DemoCards = ({open}) => {
             useCSSTransforms={true}
             {...defaultVals}
             >
-            {generateDOM()}
+            {
+                generateDOM()
+            }
             </ReactGridLayout>
         </div>
     )

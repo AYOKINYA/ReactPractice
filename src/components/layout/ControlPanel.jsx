@@ -1,10 +1,8 @@
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Box, Container, Grid, Paper } from '@mui/material';
-import ControlPad from './ControlPad'
+import { Grid } from '@mui/material';
 import { Joystick } from 'react-joystick-component';
-import { useState } from 'react';
 
 const ColorButton = styled(Button)(({ theme }) => ({
 
@@ -24,14 +22,17 @@ const ColorButton = styled(Button)(({ theme }) => ({
     },
   }));
 
-const ControlPanel = () => {
+const ControlPanel = (props) => {
 
-    const [tmp, SetTmp] = useState(true);
+    const stopDraggable = (e) => {
+        e.stopPropagation();
+        console.log("Stop Drag");
+        props.setIsDraggable(false);
+    }
 
-    const onMove = (e) => {
-        console.log("clicked")
-        console.log(e)
-        SetTmp(!tmp);
+    const makeDragabble = () => {
+        console.log("Go Drag");
+        props.setIsDraggable(true);
     }
 
     return (
@@ -44,31 +45,25 @@ const ControlPanel = () => {
                     <ColorButton variant="contained">SIT DOWN</ColorButton>
                     <ColorButton variant="contained">STAND UP</ColorButton>
             </Stack>
-            <Container>
-                <Grid container spacing={2}>
-                    <div onClick={(e) => {onMove(e)}}>
-                        <Grid item xs={6} sx={{backgroundColor: 'green'}}>
-                            <Joystick size={100}
-                                sticky={false}
-                                baseColor="red"
-                                stickColor="blue"/>
+
+                <Grid container direction="row" justifyContent="space-evenly" alignItems="stretch">
+                        <Grid item xs={6}>
+                            <div onMouseDown={(e) => {stopDraggable(e)}} onMouseUp={makeDragabble} style={{display:'flex', justifyContent: 'center'}}>
+                                <Joystick size={120}
+                                    sticky={false}
+                                    baseColor="#B2E7E8"
+                                    stickColor="#304D63"/>
+                            </div>
                         </Grid>
-                    </div>
-
-                    
-                    {/* <Grid item xs={6}>
-                        <ControlPad 
-                        options={{threshold: 0.1,
-                                position: {  top: '70%', left: '75%' },
-                                mode: 'static',
-                                size: 150,
-                                color: 'green'}}
-                        onMove={(evt, data) => console.log(evt, data)}
-                        />
-                    </Grid> */}
+                        <Grid item xs={6}>
+                            <div onMouseDown={(e) => {stopDraggable(e)}} onMouseUp={makeDragabble} style={{display:'flex', justifyContent: 'center'}}>
+                                <Joystick size={120}
+                                    sticky={false}
+                                    baseColor="#B2E7E8"
+                                    stickColor="#304D63"/>
+                            </div>
+                        </Grid>
                 </Grid>
-            </Container>
-
         </div>
     )
 }
