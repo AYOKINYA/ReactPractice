@@ -52,7 +52,7 @@ const Layout = () => {
                         width="100%"
                         height="100%">
                         </video> */}
-                        <HlsPlayer
+                        {/* <HlsPlayer
                             src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
                             autoPlay={true}
                             muted="muted"
@@ -60,7 +60,7 @@ const Layout = () => {
                             controls={true}
                             width="100%"
                             height="100%"
-                        />
+                        /> */}
                         <div style={{position: "absolute", top: "0", bottom: "0", right: "0", left: "0" }}>
                             <Toolbar/>
                             <Cards open={open}/>

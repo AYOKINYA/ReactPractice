@@ -1,14 +1,14 @@
 import React from "react";
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer
 } from "recharts";
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 
 const data = [
   {
@@ -55,33 +55,51 @@ const data = [
   }
 ];
 
-const LineDemo = () => {
+const AreaDemo = () => {
   return (
+    <div style={{width:"100%", height:"100%"}}>
+      <div className="item-header-name">
+        <CameraAltOutlinedIcon/> Camera
+      </div>
     <ResponsiveContainer width="99%" height="99%">
-      <LineChart
+      <AreaChart
         data={data}
         margin={{
-          top: 5,
+          top: 10,
           right: 30,
-          left: 20,
-          bottom: 5
+          left: 0,
+          bottom: 0
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Legend />
-        <Line
+        <Area
+          type="monotone"
+          dataKey="uv"
+          stackId="1"
+          stroke="#8884d8"
+          fill="#8884d8"
+        />
+        <Area
           type="monotone"
           dataKey="pv"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
+          stackId="1"
+          stroke="#82ca9d"
+          fill="#82ca9d"
         />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-      </LineChart>
+        <Area
+          type="monotone"
+          dataKey="amt"
+          stackId="1"
+          stroke="#ffc658"
+          fill="#ffc658"
+        />
+      </AreaChart>
     </ResponsiveContainer>
+    </div>
   );
 }
 
-export default LineDemo;
+export default AreaDemo;

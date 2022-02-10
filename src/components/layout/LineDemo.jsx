@@ -1,13 +1,16 @@
 import React from "react";
 import {
-  AreaChart,
-  Area,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  Legend,
+  ResponsiveContainer,
+  Text
 } from "recharts";
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 const data = [
   {
@@ -54,46 +57,38 @@ const data = [
   }
 ];
 
-const AreaDemo = () => {
+const LineDemo = () => {
   return (
+    <div style={{width:"100%", height:"100%"}} >
+      <div className="item-header-name">
+        <LocationOnOutlinedIcon /> Location
+      </div>
     <ResponsiveContainer width="99%" height="99%">
-      <AreaChart
+      <LineChart
         data={data}
         margin={{
-          top: 10,
+          top: 5,
           right: 30,
-          left: 0,
-          bottom: 0
+          left: 20,
+          bottom: 5
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Area
-          type="monotone"
-          dataKey="uv"
-          stackId="1"
-          stroke="#8884d8"
-          fill="#8884d8"
-        />
-        <Area
+        <Legend />
+        <Line
           type="monotone"
           dataKey="pv"
-          stackId="1"
-          stroke="#82ca9d"
-          fill="#82ca9d"
+          stroke="#8884d8"
+          activeDot={{ r: 8 }}
         />
-        <Area
-          type="monotone"
-          dataKey="amt"
-          stackId="1"
-          stroke="#ffc658"
-          fill="#ffc658"
-        />
-      </AreaChart>
+        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+      </LineChart>
     </ResponsiveContainer>
+    </div>
   );
 }
 
-export default AreaDemo;
+export default LineDemo;

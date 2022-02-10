@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css'
 
-import LineDemo from "../video/LineDemo"
-import AreaDemo from "../video/AreaDemo"
+import LineDemo from "./LineDemo"
+import AreaDemo from "./AreaDemo"
 import ControlPanel from "./ControlPanel";
 
 const ReactGridLayout = WidthProvider(RGL);
