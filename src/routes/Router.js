@@ -10,6 +10,7 @@ import Layout from "../components/layout/Layout.jsx";
 import Grid from "../components/layout/Grid.jsx";
 import Video from "../components/video/Video.jsx";
 import PieDemo from "../components/layout/PieDemo.jsx";
+import Login from "../components/login/Login.jsx";
 
 const Router = () => (
   <BrowserRouter>
@@ -20,7 +21,7 @@ const Router = () => (
     <Route path="/demo" component={Demo} />
     <Route path="/layout" component={Layout} />
     <Route path="/grid" component={Grid} />
-    <Route path="/tmp" component={PieDemo} />
+    <Route path="/tmp" component={Login} />
   
   </BrowserRouter>
 );

@@ -9,11 +9,13 @@ import Cards from "./DemoCards";
 import Grid from "./DemoResponsiveCards"
 import Bottombar from "./BottomBar";
 import HlsPlayer from "../video/HlsPlayer";
+import Login from "../login/Login";
 
 const Layout = () => {
 
     const [open, setOpen] = useState(true);
-    const [darkMode, setDarkMode] = useState(true);
+    const [darkMode, setDarkMode] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const toggleDrawer = () => {setOpen(!open);}
     const toggleDarkMode = () => {setDarkMode(!darkMode)};
@@ -28,6 +30,12 @@ const Layout = () => {
         <>
         <ThemeProvider theme={mdTheme}>
             <CssBaseline/>
+            {
+                !isLoggedIn && <Login setIsLoggedIn={setIsLoggedIn}/>
+            }
+            { 
+                isLoggedIn &&
+            
             <Box sx={{display: "flex"}}>
                 <Header
                 open={open}
@@ -69,6 +77,7 @@ const Layout = () => {
                     <Bottombar open={open}/>
                 </Box>
             </Box>
+            }
         </ThemeProvider>
         </>
     )
