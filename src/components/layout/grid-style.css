@@ -26,13 +26,15 @@
 
   .react-grid-item:not(.react-grid-placeholder) {
     background: #424242;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    /* background: rgba(255, 255, 255, 0.7); */
+    /* background: rgba(66,66,66, 0.7); */
+
   }
   
   .react-grid-item.control {
     /* background: #fff; */
     background: rgba(255, 255, 255, 0);
-
   }
 
   .react-grid-item.resizing {

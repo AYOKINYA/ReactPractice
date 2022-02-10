@@ -47,7 +47,7 @@ const ControlPanel = (props) => {
             </Stack>
 
                 <Grid container direction="row" justifyContent="space-evenly" alignItems="stretch">
-                        <Grid item xs={6}>
+                        <Grid item xs={5}>
                             <div onMouseDown={(e) => {stopDraggable(e)}} onMouseUp={makeDragabble} style={{display:'flex', justifyContent: 'center'}}>
                                 <Joystick size={120}
                                     sticky={false}
@@ -55,7 +55,7 @@ const ControlPanel = (props) => {
                                     stickColor="#304D63"/>
                             </div>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={5}>
                             <div onMouseDown={(e) => {stopDraggable(e)}} onMouseUp={makeDragabble} style={{display:'flex', justifyContent: 'center'}}>
                                 <Joystick size={120}
                                     sticky={false}
