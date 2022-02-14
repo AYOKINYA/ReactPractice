@@ -9,19 +9,49 @@ const Video = () => {
 
     const capture = (e) => {
       console.log("Capture");
-      html2canvas(vidRef.current).then(
+      html2canvas(vidRef.current, {
+        width: vidRef.current.offsetWidth,
+        height: vidRef.current.offsetHeight
+      }).then(
         (canvas) => {
-          const x = e.nativeEvent.offsetX;
-          const y = e.nativeEvent.offsetY;
-          console.log(x);
-          console.log(y);
-          const img = canvas.getContext('2d').getImageData(x - 200, y - 150, 200, 200)
-          const c = document.createElement("canvas");
+          const x = e.nativeEvent.clientX;
+          const y = e.nativeEvent.clientY;
+          console.log('video width : ', vidRef.current.offsetWidth);
+          console.log('video height : ', vidRef.current.offsetHeight);
+          console.log('canvas w : ', canvas.width)
+          console.log('canvas h : ', canvas.height)
+          console.log('x : ', x)
+          console.log('y : ', y)
+
+          let croppedCanvas = document.createElement("canvas");
+          let croppedCanvasContext = croppedCanvas.getContext("2d");
+          console.log("ctx : ", croppedCanvasContext)
+
+          croppedCanvas.width = 300;
+          croppedCanvas.height = 300;
+
+          croppedCanvasContext.drawImage(
+            canvas, //image
+            x - 300, //sx
+            y - 200, //sy
+            300, //sw
+            300, // sh
+            0, // dx
+            0, // dy
+            300, //dw
+            300 // dw
+          );
+
+          onSaveAs(croppedCanvas.toDataURL('image/png'), 'image-download.png')
+
+         
+          // const img = canvas.getContext('2d').getImageData(x - 200, y - 150, 200, 200)
+          // const c = document.createElement("canvas");
           
-          c.width = 200;
-          c.height = 200;
-          c.getContext('2d').putImageData(img, 0, 0)
-          onSaveAs(c.toDataURL('image/png'), 'image-download.png')
+          // c.width = 200;
+          // c.height = 200;
+          // c.getContext('2d').putImageData(img, 0, 0)
+          // onSaveAs(c.toDataURL('image/png'), 'image-download.png')
         })
     }
 
@@ -39,11 +69,12 @@ const Video = () => {
       if (e.nativeEvent.offsetY > vidRef.current.offsetHeight)
         return ;
       vidRef.current.click();
+      console.log('current event : ', e.nativeEvent)
       capture(e);
-      console.log('video width : ', vidRef.current.offsetWidth);
-      console.log('video height : ', vidRef.current.offsetHeight);
-      console.log('current X : ', e.nativeEvent.offsetX)
-      console.log('current Y : ', e.nativeEvent.offsetY)
+      // console.log('video width : ', vidRef.current.offsetWidth);
+      // console.log('video height : ', vidRef.current.offsetHeight);
+      // console.log('current X : ', e.nativeEvent.offsetX)
+      // console.log('current Y : ', e.nativeEvent.offsetY)
 
     };
 
