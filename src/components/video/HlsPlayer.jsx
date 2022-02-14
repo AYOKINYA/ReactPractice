@@ -3,15 +3,26 @@ import Hls from 'hls.js';
 
 const HlsPlayer = ({
     hlsConfig,
-    playerRef,
+    // vidRef,
     src,
     autoPlay,
+    vidRef,
     ...props
   }) => {
 
-    playerRef = React.useRef(null); // 올바른 위치인가?
+    // vidRef = React.useRef(null); // 올바른 위치인가?
 
+    const tmp = (e) => {
+      console.log((e.nativeEvent.offsetX));
+      console.log((e.nativeEvent.offsetY));
+    }
+  
     useEffect(() => {
+
+      if (vidRef.current != null) {
+        console.log(vidRef.current.offsetWidth);
+        console.log(vidRef.current.offsetHeight);
+      }
 
         let hls;
     
@@ -25,8 +36,8 @@ const HlsPlayer = ({
             ...hlsConfig,
           });
     
-          if (playerRef.current != null) {
-            newHls.attachMedia(playerRef.current);  
+          if (vidRef.current != null) {
+            newHls.attachMedia(vidRef.current);  
           }
     
           newHls.on(Hls.Events.MEDIA_ATTACHED, () => {
@@ -34,7 +45,7 @@ const HlsPlayer = ({
 
             newHls.on(Hls.Events.MANIFEST_PARSED, () => {
               if (autoPlay) {
-                playerRef?.current
+                vidRef?.current
                   ?.play()
                   .catch(() =>
                     console.log(
@@ -75,13 +86,17 @@ const HlsPlayer = ({
             hls.destroy();
           }
         };
-      }, [autoPlay, hlsConfig, playerRef, src]);
+
+
+      }, [autoPlay, hlsConfig, vidRef, src]);
     
       // If Media Source is supported, use HLS.js to play video
-      if (Hls.isSupported()) return <video ref={playerRef} {...props} />;
+      if (Hls.isSupported()) {
+        return (<video ref={vidRef} {...props} />);
+      }
     
       // Fallback to using a regular video player if HLS is supported by default in the user's browser
-      return <video ref={playerRef} src={src} autoPlay={autoPlay} {...props} />;
+      return <video ref={vidRef} src={src} autoPlay={autoPlay} {...props} />;
 }
 
 export default HlsPlayer;

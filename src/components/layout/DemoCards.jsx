@@ -11,7 +11,7 @@ import ControlPanel from "./ControlPanel";
 
 const ReactGridLayout = WidthProvider(RGL);
 
-const DemoCards = ({open}) => {
+const DemoCards = ({open, clickTarget}) => {
 
     const [isDraggable, setIsDraggable] = useState(true);
 
@@ -67,7 +67,7 @@ const DemoCards = ({open}) => {
 
 
     return (
-        <div>
+            <div onClick={e => clickTarget(e)} >
             <ReactGridLayout
             layout={layout}
             // isBounded={true}

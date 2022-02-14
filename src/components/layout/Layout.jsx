@@ -47,28 +47,24 @@ const Layout = () => {
                 toggleDrawer={toggleDrawer} />
                 <Box //이걸 해야 sidebar와 색으로 영역 구분
                 component="main"
-                sx={{backgroundColor: (theme) => theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
+                sx={{
+                    backgroundColor: (theme) => theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
                     flexGrow: 1,
                     width:"100vw",
                     height: '100vh',
                     // overflow:'auto',
                     position: "relative",
-                    backgroundColor: "#424242"
+                    backgroundColor: "#424242",
                 }}>
-                        {/* <video 
-                        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" muted loop autoPlay
-                        width="100%"
-                        height="100%">
-                        </video> */}
-                        {/* <HlsPlayer
+                        <HlsPlayer
                             src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
                             autoPlay={true}
                             muted="muted"
                             loop="loop"
-                            controls={true}
+                            controls={false}
                             width="100%"
                             height="100%"
-                        /> */}
+                        />
                         <div style={{position: "absolute", top: "0", bottom: "0", right: "0", left: "0" }}>
                             <Toolbar/>
                             <Cards open={open}/>
