@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react';
 import 'react-grid-layout/css/styles.css' 
 import 'react-resizable/css/styles.css'
 
-import LineDemo from "../layout/LineDemo"
-import AreaDemo from "../layout/AreaDemo"
+import Widget from "./Widget";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -19,7 +18,7 @@ const Cards = ({open}) => {
         y: 12,
         cols: 12,
         onLayoutChange: function() {},
-        verticalCompact: false
+        compactType: null
     };
 
     const [layout, setLayout] = useState();
@@ -27,7 +26,6 @@ const Cards = ({open}) => {
     const generateLayout = () => { //temporary
         const v = defaultVals;
         return _.map(new Array(v.items), function (item, i) {
-            const y = _.result(v, "y") || Math.ceil(Math.random() * 4) + 1;
             return {
                 x: open === true ? 8 : 9, //open할 때마다 grid 변화.. responsive으로 바꾸기
                 y: i,
@@ -52,8 +50,7 @@ const Cards = ({open}) => {
         return _.map(_.range(defaultVals.items), function(i) {
           return (
             <div key={i}>
-              <span className="text"></span>
-              {i === 0 ? <LineDemo/> : <AreaDemo/>}
+              {<Widget i={i} />}
             </div>
           );
         });

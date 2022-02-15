@@ -96,7 +96,7 @@ const Layout = () => {
         console.log('current Y : ', e.nativeEvent.offsetY)
 
         vidRef.current.click();
-        capture(e);
+        // capture(e);
       };
 
     return (
