@@ -61,15 +61,20 @@ const Video = () => {
     }
 
     const clickTarget = (e) => {
-      if (e.nativeEvent.offsetY > vidRef.current.offsetHeight)
-        return ;
+      if (
+          (e.target.className !== 'react-grid-layout layout') || // Video 화면을 선택하는 게 아닐 때
+          (e.nativeEvent.offsetY > vidRef.current.offsetHeight) // 빈 화면을 클릭할 때
+        ) {
+          return ;
+        }
+
       vidRef.current.click();
       console.log('current event : ', e.nativeEvent)
       capture(e);
-      // console.log('video width : ', vidRef.current.offsetWidth);
-      // console.log('video height : ', vidRef.current.offsetHeight);
-      // console.log('current X : ', e.nativeEvent.offsetX)
-      // console.log('current Y : ', e.nativeEvent.offsetY)
+      console.log('video width : ', vidRef.current.offsetWidth);
+      console.log('video height : ', vidRef.current.offsetHeight);
+      console.log('current X : ', e.nativeEvent.offsetX)
+      console.log('current Y : ', e.nativeEvent.offsetY)
 
     };
 
