@@ -9,50 +9,45 @@ const Video = () => {
 
     const capture = (e) => {
       console.log("Capture");
-      html2canvas(vidRef.current, {
-        width: vidRef.current.offsetWidth,
-        height: vidRef.current.offsetHeight
-      }).then(
-        (canvas) => {
-          const x = e.nativeEvent.clientX;
-          const y = e.nativeEvent.clientY;
-          console.log('video width : ', vidRef.current.offsetWidth);
-          console.log('video height : ', vidRef.current.offsetHeight);
-          console.log('canvas w : ', canvas.width)
-          console.log('canvas h : ', canvas.height)
-          console.log('x : ', x)
-          console.log('y : ', y)
+      html2canvas(vidRef.current).then((canvas) => {
+            const w = vidRef.current.offsetWidth;
+            const h = vidRef.current.offsetHeight;
+            console.log('video width : ', vidRef.current.offsetWidth);
+            console.log('video height : ', vidRef.current.offsetHeight);
+            console.log('canvas width : ', canvas.width)
+            console.log('canvas height : ', canvas.height)
+            
 
-          let croppedCanvas = document.createElement("canvas");
-          let croppedCanvasContext = croppedCanvas.getContext("2d");
-          console.log("ctx : ", croppedCanvasContext)
+            const x = e.nativeEvent.offsetX;
+            const y = e.nativeEvent.offsetY;
+            console.log('current X : ', e.nativeEvent.offsetX)
+            console.log('current Y : ', e.nativeEvent.offsetY)
 
-          croppedCanvas.width = 300;
-          croppedCanvas.height = 300;
+            const cx = x / w * canvas.width;
+            const cy = y / h * canvas.height;
+            const left = Math.max(cx - 100, 0);
+            const top = Math.max(cy - 100, 0);
+            const width = Math.min(200, canvas.width - left);
+            const height = Math.min(200, canvas.height - top);
+            console.log(top, left, width, height);
 
-          croppedCanvasContext.drawImage(
-            canvas, //image
-            x - 300, //sx
-            y - 200, //sy
-            300, //sw
-            300, // sh
-            0, // dx
-            0, // dy
-            300, //dw
-            300 // dw
-          );
+            const img = canvas.getContext('2d').getImageData(left, top, width, height);
+            const c = document.createElement("canvas");
+            c.width = width;
+            c.height = height;
+            c.getContext('2d').putImageData(img, 0, 0);
+            onSaveAs(c.toDataURL(), 'image-download.png');
 
-          onSaveAs(croppedCanvas.toDataURL('image/png'), 'image-download.png')
-
-         
-          // const img = canvas.getContext('2d').getImageData(x - 200, y - 150, 200, 200)
-          // const c = document.createElement("canvas");
-          
-          // c.width = 200;
-          // c.height = 200;
-          // c.getContext('2d').putImageData(img, 0, 0)
-          // onSaveAs(c.toDataURL('image/png'), 'image-download.png')
-        })
+            // when pixel size fixed to 200px x 200px
+            // const cx = x / w * canvas.width;
+            // const cy = y / h * canvas.height;
+            // var img = canvas.getContext('2d').getImageData(cx - 100, cy - 100, 200, 200);
+            // const c = document.createElement("canvas");
+            // c.width = 200;
+            // c.height = 200;
+            // c.getContext('2d').putImageData(img, 0, 0);
+            // onSaveAs(c.toDataURL(), 'image-download.png')
+      })
     }
 
     const onSaveAs = (url, filename) => {
