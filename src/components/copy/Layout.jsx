@@ -75,7 +75,7 @@ const Layout = () => {
               console.log("x-ratio, y-ratio :", `${x/vw}, ${y/vh}`)
               console.log("x-ratio, y-ratio :", `${cx/canvas.width}, ${cy/canvas.width}`)
 
-            //   var img = canvas.getContext('2d').getImageData(cx - 100, cy - 50, 200, 200);
+            //   var img = canvas.getContext('2d').getImageData(cx - 100, cy - 30, 200, 200);
             //   const c = document.createElement("canvas");
             //   c.width = 200;
             //   c.height = 200;
