@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cycjimmy/jsmpeg-player": "^5.0.1",
     "@mui/icons-material": "^5.3.1",
     "@mui/material": "^5.3.1",
     "@mui/styled-engine": "@mui/styled-engine-sc@latest",

@@ -71,6 +71,19 @@
      // Used to save current position of stick
      var movedX=centerX;
      var movedY=centerY;
+
+
+     // throttle for keydown movement
+     let lastCall = 0;
+     const throttleAmount = 500;
+
+     let pressedArr = {
+       "ArrowRight" : false,
+       "ArrowLeft" : false,
+       "ArrowUp" : false,
+       "ArrowDown" : false
+     }
+
  
      // Check if the device support the touch or not
      if("ontouchstart" in document.documentElement)
@@ -81,9 +94,11 @@
      }
      else
      {
-         canvas.addEventListener("mousedown", onMouseDown, false);
-         document.addEventListener("mousemove", onMouseMove, false);
-         document.addEventListener("mouseup", onMouseUp, false);
+        //  canvas.addEventListener("mousedown", onMouseDown, false);
+        //  document.addEventListener("mousemove", onMouseMove, false);
+        //  document.addEventListener("mouseup", onMouseUp, false);
+         document.addEventListener("keydown", onKeyDown, false);
+         document.addEventListener("keyup", onKeyUp, false);
      }
      // Draw the object
      drawExternal();
@@ -193,6 +208,104 @@
          StickStatus.cardinalDirection = getCardinalDirection();
          callback(StickStatus);
      }
+
+    /**
+     * @desc Events for keyboard
+     */
+
+    function drawOnCanvas() {
+
+      console.log("Drawing...")
+      // Set attribute of callback
+      if (pressedArr["ArrowUp"] && pressedArr["ArrowRight"]) {
+        movedX = canvas.width * 0.75
+        movedY = canvas.height * 0.25;
+      } else if (pressedArr["ArrowUp"] && pressedArr["ArrowLeft"]) {
+        movedX = canvas.width * 0.25
+        movedY = canvas.height * 0.25;
+      } else if (pressedArr["ArrowDown"] && pressedArr["ArrowRight"]) {
+        movedX = canvas.width * 0.75
+        movedY = canvas.height * 0.75;
+      } else if (pressedArr["ArrowDown"] && pressedArr["ArrowLeft"]) {
+        movedX = canvas.width * 0.25
+        movedY = canvas.height * 0.75;
+      } else if (pressedArr["ArrowRight"]) {
+        movedX = canvas.width * 0.75
+        movedY = canvas.height * 0.5;
+      } else if (pressedArr["ArrowLeft"]) {
+        movedX = canvas.width * 0.25
+        movedY = canvas.height * 0.5;
+      } else if (pressedArr["ArrowUp"]) {
+        movedX = canvas.width * 0.5
+        movedY = canvas.height * 0.25;
+      } else if (pressedArr["ArrowDown"]) {
+        movedX = canvas.width * 0.5
+        movedY = canvas.height * 0.75;
+      }
+
+      StickStatus.xPosition = movedX;
+      StickStatus.yPosition = movedY;
+      StickStatus.x = (100*((movedX - centerX)/maxMoveStick)).toFixed();
+      StickStatus.y = ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+      StickStatus.cardinalDirection = getCardinalDirection();
+      callback(StickStatus);
+
+      // Delete canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Redraw object
+      drawExternal();
+      drawInternal();
+    }
+
+    function onKeyDown(event) 
+    {
+        if (!pressedArr.hasOwnProperty(event.code)) {
+          return ;
+        }
+
+        const now = new Date().getTime();
+        if ( !now || now - lastCall < throttleAmount) {
+          return ;
+        }
+        lastCall = now;
+
+        pressedArr[event.code] = true;
+
+        drawOnCanvas();
+    }
+
+    function onKeyUp(event) 
+    {
+        pressedArr[event.code] = false;
+
+        const onGoingArrow = Object.values(pressedArr).findIndex(val => val === true)
+
+        if (onGoingArrow !== -1) {
+          drawOnCanvas();
+          return;
+        }
+
+         // If required reset position store variable
+         if(autoReturnToCenter)
+         {
+             movedX = centerX;
+             movedY = centerY;
+         }
+         // Delete canvas
+         context.clearRect(0, 0, canvas.width, canvas.height);
+         // Redraw object
+         drawExternal();
+         drawInternal();
+ 
+         // Set attribute of callback
+         StickStatus.xPosition = movedX;
+         StickStatus.yPosition = movedY;
+         StickStatus.x = (100*((movedX - centerX)/maxMoveStick)).toFixed();
+         StickStatus.y = ((100*((movedY - centerY)/maxMoveStick))*-1).toFixed();
+         StickStatus.cardinalDirection = getCardinalDirection();
+         callback(StickStatus);
+    }
  
      /**
       * @desc Events for manage mouse

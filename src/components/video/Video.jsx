@@ -2,6 +2,7 @@ import Cards from "./Cards";
 import HlsPlayer from "./HlsPlayer";
 import React, { useRef } from "react";
 import html2canvas from "html2canvas";
+import RtspPlayer from "./RtspPlayer";
 
 const Video = () => {
 
@@ -82,7 +83,7 @@ const Video = () => {
 
     return (
       <div style={{position: "relative"}}>
-          <HlsPlayer
+          {/* <HlsPlayer
           src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
           autoPlay={true}
           muted={"muted"}
@@ -91,7 +92,8 @@ const Video = () => {
           width="100%"
           height="auto"
           vidRef={vidRef}
-        />
+        /> */}
+            <RtspPlayer width="100%" height="1080px"/>
         <div style={{position: "absolute", top: "0", bottom: "0", right: "0", left: "0" }}>
           <Cards open={open} clickTarget={clickTarget}/>
         </div>
